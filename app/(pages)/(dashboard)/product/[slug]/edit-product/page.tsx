@@ -28,7 +28,10 @@ const EditProduct = ({ params }: { params: { slug: string } }) => {
     return (
         <Layout>
             <section className="lg:col-span-1 px-6 mt-6">
-                Edit {productDetails?.productName}
+                <h1 className="text-center my-4 uppercase font-bold">
+                    Edit {productDetails?.productName}
+                </h1>
+
                 <div className="bg-white rounded-md my-6 p-4 md:p-8">
                     {productDetails && (
                         <ProductForm

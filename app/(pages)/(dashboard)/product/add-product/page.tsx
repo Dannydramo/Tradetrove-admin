@@ -6,7 +6,9 @@ const AddProduct = () => {
     return (
         <Layout>
             <section className="lg:col-span-1 px-6 mt-6">
-                Add Products Page
+                <h1 className="text-center my-4 uppercase font-bold">
+                    Add New Product
+                </h1>
                 <div className="bg-white rounded-md my-6 p-4 md:p-8">
                     <ProductForm isEditing={false} />
                 </div>

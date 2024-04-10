@@ -1,4 +1,5 @@
 'use client';
+import { getChartData } from '@/app/services/vendor';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,6 +11,7 @@ import {
     Legend,
     Filler,
 } from 'chart.js';
+import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -24,20 +26,28 @@ ChartJS.register(
 );
 
 const Chart = () => {
+    const [chartData, setChartData] = useState({
+        labels: [],
+        amounts: [],
+    });
+
+    useEffect(() => {
+        const fetchChartData = async () => {
+            const { status, data } = await getChartData();
+            if (status !== 200) {
+                return;
+            }
+            setChartData(data);
+        };
+        fetchChartData();
+    }, []);
+
     const data = {
-        labels: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-        ],
+        labels: chartData.labels,
         datasets: [
             {
                 label: 'Sales',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: chartData.amounts,
                 borderColor: 'rgba(75,192,192,1)',
                 backgroundColor: 'rgba(75,192,192,0.2)',
             },

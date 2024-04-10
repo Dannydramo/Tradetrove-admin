@@ -36,7 +36,7 @@ const Products = () => {
                 {loading ? (
                     <p>Loading products...</p>
                 ) : products.length === 0 ? (
-                    <div className="text-center flex flex-col justify-center items-center">
+                    <div className="text-center flex flex-col sm:flex-row sm:justify-between sm:items-center">
                         <p>No products found.</p>
                         <Link
                             href="/product/add-product"
@@ -57,14 +57,12 @@ const Products = () => {
                             </Link>
                         </div>
                         <div className="grid sm:grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
-                            <ul>
-                                {products.map((product: ProductProps) => (
-                                    <ProductCard
-                                        key={product._id}
-                                        product={product}
-                                    />
-                                ))}
-                            </ul>
+                            {products.map((product: ProductProps) => (
+                                <ProductCard
+                                    key={product._id}
+                                    product={product}
+                                />
+                            ))}
                         </div>
                     </div>
                 )}

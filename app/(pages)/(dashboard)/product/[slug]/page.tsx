@@ -41,7 +41,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
     return (
         <Layout>
             <section className="lg:col-span-1 px-6 mt-6">
-                <div className="flex flex-col md:flex-row gap-8 justify-between">
+                <div className="flex flex-col md:flex-row gap-8 md:justify-between md:items-center py-4">
                     <Carousel
                         plugins={[plugin.current]}
                         className="w-full md:w-1/2 lg:h-[50vh]"
@@ -83,7 +83,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             {' '}
                             ₦{productDetails?.price}
                         </p>
-                        <p>
+                        <p
+                            className={`my-6 w-fit sm:px-3 sm:py-1.5 px-1.5 py-1 text-[8px] sm:text-xs font-bold tracking-wide uppercase  rounded-full text-white ${
+                                productDetails?.inStock === true
+                                    ? 'bg-green-500'
+                                    : 'bg-red-500'
+                            }`}
+                        >
                             {productDetails?.inStock &&
                             productDetails.inStock === true
                                 ? 'In Stock'
@@ -91,7 +97,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                         </p>
                         <Link
                             href={`/product/${productDetails?._id}/edit-product`}
-                            className="bg-[#4F80E1] text-white px-6 py-3 rounded-md my-4"
+                            className="bg-[#4F80E1] text-white px-6 py-3 rounded-md mt-8"
                         >
                             Edit Product
                         </Link>

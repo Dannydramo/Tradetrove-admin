@@ -56,3 +56,45 @@ export const updateVendorDetails = async (
     }
     return { status, message, data };
 };
+
+export const getVendorStatistics = async () => {
+    const token = getCookie('token');
+    try {
+        const response = await Axios({
+            url: 'vendor/statistics',
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        status = 200;
+        message = response.message;
+        data = response.data;
+    } catch (err: any) {
+        status = err.response.status;
+        message = err.response.data.message;
+    }
+    return { status, data };
+};
+
+export const getChartData = async () => {
+    const token = getCookie('token');
+    try {
+        const response = await Axios({
+            url: 'vendor/monthly-amount',
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        status = 200;
+        message = response.message;
+        data = response.data;
+    } catch (err: any) {
+        status = err.response.status;
+        message = err.response.data.message;
+    }
+    return { status, data };
+};
