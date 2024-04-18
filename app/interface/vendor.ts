@@ -8,4 +8,5 @@ export interface VendorProps {
     state?: string;
     country?: string;
     logo?: string;
+    description?: string;
 }

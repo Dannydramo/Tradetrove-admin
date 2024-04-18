@@ -80,7 +80,7 @@ const ForgotPasswordForm = () => {
                     type="submit"
                     className="w-full mt-6 h-12 bg-[#4F80E1] hover:bg-[#4F80E1] hover:text-white text-white"
                 >
-                    Send Reset Link
+                    Send Password Reset Link
                 </Button>
             </form>
         </div>

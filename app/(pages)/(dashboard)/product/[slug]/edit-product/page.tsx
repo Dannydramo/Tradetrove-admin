@@ -20,6 +20,7 @@ const EditProduct = ({ params }: { params: { slug: string } }) => {
                 setProductDetails(data);
             } catch (error) {
                 console.error('Error fetching product details:', error);
+                return;
             }
         };
         fetchProductDetails();

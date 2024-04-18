@@ -50,7 +50,7 @@ const ProductForm = ({
     };
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        maxFiles: 5,
+        maxFiles: 4,
         accept: {
             'image/*': [],
         },

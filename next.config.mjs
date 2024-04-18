@@ -3,6 +3,9 @@ const nextConfig = {
     images: {
         domains: ['res.cloudinary.com'],
     },
+    eslint: {
+        dirs: ['pages', 'utils'],
+    },
 };
 
 export default nextConfig;

@@ -16,6 +16,7 @@ import { uploadLogoToCloudinary } from '@/app/services/upload';
 import { updateVendorDetails } from '@/app/services/vendor';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { Textarea } from '@/components/ui/textarea';
 
 const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
     const [vendor, setVendor] = useState<VendorProps>({
@@ -26,6 +27,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
         city: initialValues?.city || '',
         state: initialValues?.state || '',
         country: initialValues?.country || '',
+        description: initialValues?.description || '',
     });
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -273,6 +275,24 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                 {errors.country && (
                     <span className="text-red-500 text-sm">
                         {errors.country}
+                    </span>
+                )}
+            </div>
+            <div className="mt-6">
+                <Label className="mb-2 text-sm">Business Description</Label>
+                <Textarea
+                    placeholder="Enter Business Description"
+                    value={vendor.description}
+                    onChange={(e) => {
+                        setVendor({
+                            ...vendor,
+                            description: e.target.value,
+                        });
+                    }}
+                />
+                {errors.description && (
+                    <span className="text-red-500 text-sm">
+                        {errors.description}
                     </span>
                 )}
             </div>

@@ -6,4 +6,5 @@ export const vendorValidationSchema = Yup.object().shape({
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
     country: Yup.string().required('Country is required'),
+    description: Yup.string().required('Business Description is required'),
 });

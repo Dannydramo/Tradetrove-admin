@@ -48,10 +48,10 @@ const Products = () => {
                 ) : (
                     <div>
                         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
-                            <h2>Products</h2>
+                            <h2 className="font-bold">Products</h2>
                             <Link
                                 href="/product/add-product"
-                                className="bg-[#4F80E1] text-white px-6 py-3 rounded-md"
+                                className="bg-[#4F80E1] text-white  px-6 py-3 rounded-md"
                             >
                                 Add a product
                             </Link>

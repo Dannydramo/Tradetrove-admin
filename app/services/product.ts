@@ -55,7 +55,6 @@ export const getProductsByVendor = async () => {
 };
 
 export const getProductDetails = async (productId: string) => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: `/product/${productId}`,

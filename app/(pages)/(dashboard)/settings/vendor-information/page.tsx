@@ -22,13 +22,16 @@ const PersonalInformation = () => {
                         </Link>
                     </div>
                     <div className="mt-4 flex flex-col space-y-4 text-sm">
-                        <Image
-                            src={vendor?.logo!}
-                            width={70}
-                            height={70}
-                            loading="lazy"
-                            alt="Vendor Logo"
-                        />
+                        <div className="w-[70px] h-[70px]">
+                            <Image
+                                src={vendor?.logo!}
+                                width={70}
+                                height={70}
+                                loading="lazy"
+                                alt="Vendor Logo"
+                                className="w-full h-full rounded-full"
+                            />
+                        </div>
                         <p>
                             <span className="text-base font-bold mr-2">
                                 Business Name:
