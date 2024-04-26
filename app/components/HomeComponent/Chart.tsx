@@ -37,6 +37,8 @@ const Chart = () => {
             if (status !== 200) {
                 return;
             }
+            console.log(data);
+
             setChartData(data);
         };
         fetchChartData();

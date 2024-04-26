@@ -16,6 +16,8 @@ const Statistics = () => {
             if (status !== 200) {
                 return;
             }
+            console.log(data);
+
             setStatisticsText(data);
         };
         fetchVendorStatistics();
