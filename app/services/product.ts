@@ -96,11 +96,11 @@ export const editProduct = async (products: ProductProps) => {
     return { status, message, data };
 };
 
-export const deleteProduct = async (payload: ProductProps) => {
+export const deleteProductById = async (payload: string) => {
     const token = getCookie('token');
     try {
         const response = await Axios({
-            url: `/product/delete/${payload._id}`,
+            url: `/product/delete/${payload}`,
             method: 'delete',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -109,10 +109,9 @@ export const deleteProduct = async (payload: ProductProps) => {
 
         status = 200;
         message = response.message;
-        data = response.data;
     } catch (err: any) {
         status = err.response.status;
         message = err.response.data.message;
     }
-    return { status, message, data };
+    return { status, message };
 };

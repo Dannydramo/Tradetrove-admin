@@ -209,7 +209,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </div>
             </aside>
             <div className="w-full flex-1 lg:ml-64 overflow-x-hidden">
-                <header className="flex items-center h-16 px-4 py-2 sm:py-4 sm:px-6 bg-white border-b w-full border-gray-200">
+                <header className="flex items-center h-16 px-4 py-2 sm:py-4 sm:px-6 border-b w-full border-gray-200">
                     <div className="">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

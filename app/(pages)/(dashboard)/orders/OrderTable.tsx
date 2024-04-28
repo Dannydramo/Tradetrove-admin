@@ -65,13 +65,15 @@ const OrderTable = () => {
                         </TableCell>
                         <TableCell>
                             {order.products.map((product: any) => (
-                                <Image
-                                    src={product.images[0]}
-                                    alt={product.productName}
-                                    width={50}
-                                    height={50}
-                                    className="w-[40px] h-[40px] rounded-full"
-                                />
+                                <div className="bg-gray-200 p-2 rounded-sm w-fit">
+                                    <Image
+                                        src={product.images[0]}
+                                        alt={product.productName}
+                                        height={50}
+                                        width={50}
+                                        className="h-[30px] w-[30px]"
+                                    />
+                                </div>
                             ))}
                         </TableCell>
                         <TableCell>

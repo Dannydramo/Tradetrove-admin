@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import ProductCard from './ProductCard';
+import ProductTable from './ProductTable';
 
 const Products = () => {
     const [products, setProducts] = useState<ProductProps[]>([]);
@@ -46,7 +47,7 @@ const Products = () => {
                         </Link>
                     </div>
                 ) : (
-                    <div>
+                    <div className="bg-white p-4 rounded-lg mt-8">
                         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
                             <h2 className="font-bold">Products</h2>
                             <Link
@@ -56,14 +57,7 @@ const Products = () => {
                                 Add a product
                             </Link>
                         </div>
-                        <div className="grid sm:grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
-                            {products.map((product: ProductProps) => (
-                                <ProductCard
-                                    key={product._id}
-                                    product={product}
-                                />
-                            ))}
-                        </div>
+                        <ProductTable products={products} />
                     </div>
                 )}
             </section>
