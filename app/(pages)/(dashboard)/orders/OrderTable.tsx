@@ -83,7 +83,7 @@ const OrderTable = () => {
                         </TableCell>
                         <TableCell>
                             {' '}
-                            {order.products.map((product) => (
+                            {order.products.map((product: any) => (
                                 <div key={product._id}>
                                     {order.totalPrice / product.price}
                                 </div>
