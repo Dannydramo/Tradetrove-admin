@@ -99,9 +99,9 @@ const Chat = () => {
 
     return (
         <Layout>
-            <div className="sm:flex sm:flex-row h-[calc(100vh-100px)]">
+            <div className="sm:flex sm:flex-row h-[calc(100vh-110px)] m-4">
                 <div className="chatMenu">
-                    <div className="p-4 h-[100%] bg-white rounded-md">
+                    <div className="p-4 h-[100%] bg-blue-500 rounded-md ">
                         <div className="flex flex-row sm:flex-col">
                             {conversations.map((conversation: any) => (
                                 <div
@@ -163,11 +163,6 @@ const Chat = () => {
                         )}
                     </div>
                 </div>
-                {/* <div className="chatDetails hidden md:block">
-                    <div className="p-4 h-[100%] bg-white rounded-md">
-                        <VendorDetails />
-                    </div>
-                </div> */}
             </div>
         </Layout>
     );
