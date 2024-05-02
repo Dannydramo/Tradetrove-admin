@@ -11,7 +11,7 @@ const UpdateVendorInformation = () => {
             <SettingsLayout>
                 <main className="md:px-8 w-full md:border-l">
                     <div className="border-b pb-4">
-                        <h1 className="text-xl font-bold">
+                        <h1 className="text-base sm:text-xl font-bold">
                             Update Vendors Information
                         </h1>
                     </div>

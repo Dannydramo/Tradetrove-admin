@@ -37,7 +37,6 @@ const Chart = () => {
             if (status !== 200) {
                 return;
             }
-            console.log(data);
 
             setChartData(data);
         };
@@ -68,7 +67,7 @@ const Chart = () => {
     };
 
     return (
-        <div className="bg-white p-8 rounded-md">
+        <div className="bg-white p-2 sm:p-8 rounded-md">
             <h2>Sales Chart</h2>
             <Line data={data} options={options} />
         </div>

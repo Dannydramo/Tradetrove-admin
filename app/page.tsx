@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <>
             <Layout>
-                <section className="lg:col-span-1 mt-6 px-6">
+                <section className="lg:col-span-1 mt-6 px-4 sm:px-6">
                     <Statistics />
                     <Chart />
                     <LatestOrders />

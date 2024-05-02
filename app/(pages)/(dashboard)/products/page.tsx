@@ -5,7 +5,6 @@ import { getProductsByVendor } from '@/app/services/product';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import ProductCard from './ProductCard';
 import ProductTable from './ProductTable';
 
 const Products = () => {
@@ -33,7 +32,7 @@ const Products = () => {
     }, []);
     return (
         <Layout>
-            <section className="lg:col-span-1 px-6 mt-6">
+            <section className="lg:col-span-1 px-4 sm:px-6 mt-6">
                 {loading ? (
                     <p>Loading products...</p>
                 ) : products.length === 0 ? (

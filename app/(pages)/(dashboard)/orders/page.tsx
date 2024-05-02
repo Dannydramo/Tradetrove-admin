@@ -5,8 +5,7 @@ import OrderTable from './OrderTable';
 const Orders = () => {
     return (
         <Layout>
-            <section className="lg:col-span-1 px-6 mt-6">
-                <p>Orders Page</p>
+            <section className="lg:col-span-1 px-4 sm:px-6 mt-6">
                 <OrderTable />
             </section>
         </Layout>

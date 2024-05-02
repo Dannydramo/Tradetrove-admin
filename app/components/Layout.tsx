@@ -1,22 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getVendorDetails } from '../services/vendor';
 import { VendorStore } from '../store/vendorStore';
+import { Button } from '@/components/ui/button';
+import { deleteCookie } from 'cookies-next';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [mobileToggle, setMobileToggle] = useState(false);
     const pathname = usePathname();
     const { vendor, setVendor } = VendorStore();
+    const router = useRouter();
 
     useEffect(() => {
         const fetchVendorDetails = async () => {
             try {
                 const { message, data, status } = await getVendorDetails();
                 if (status !== 200) {
-                    console.log(message);
+                    return;
                 }
 
                 setVendor(data);
@@ -26,6 +29,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         };
         fetchVendorDetails();
     }, []);
+
+    const handleLogout = () => {
+        deleteCookie('token');
+        router.replace('/login');
+    };
 
     return (
         <section className="flex w-full min-h-screen bg-[#F6F8FF]">
@@ -90,7 +98,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     <nav className="flex flex-col space-y-4">
                         <Link
                             href={'/'}
-                            className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
+                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
                                 pathname === '/' && 'bg-[#4F80E1] text-white'
                             }`}
                         >
@@ -114,7 +122,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                         <Link
                             href={'/orders'}
-                            className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
+                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
                                 pathname === '/orders' &&
                                 'bg-[#4F80E1] text-white'
                             }`}
@@ -137,36 +145,30 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                         <Link
                             href={'/products'}
-                            className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
+                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
                                 pathname.includes('/products' || 'product') &&
                                 'bg-[#4F80E1] text-white'
                             }`}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true"
-                                role="img"
-                                className="iconify iconify--eos-icons text-xl mr-4"
-                                width="1em"
-                                height="1em"
-                                preserveAspectRatio="xMidYMid meet"
-                                viewBox="0 0 24 24"
-                                data-icon="eos-icons:product-subscriptions-outlined"
+                                className="w-5 h-6 mr-4"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                                stroke="currentColor"
                             >
                                 <path
-                                    fill="currentColor"
-                                    d="M12.841 15.1L12 13l-.841 2.1L9 15.292l1.64 1.489L10.146 19L12 17.821L13.854 19l-.494-2.219L15 15.292zM6 2h12v2H6zM4 6h16v2H4z"
-                                ></path>
-                                <path
-                                    fill="currentColor"
-                                    d="M20 12v8H4v-8zm0-2H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2"
+                                    d="M5.23077 10.1667H18.7692M5.23077 10.1667V18.3333C5.23077 18.6427 5.36044 18.9395 5.59125 19.1583C5.82207 19.377 6.13511 19.5 6.46154 19.5H17.5385C17.8649 19.5 18.178 19.377 18.4087 19.1583C18.6395 18.9395 18.7692 18.6427 18.7692 18.3333V10.1667M5.23077 10.1667C4.55103 10.1667 4 9.64433 4 9V6.66667C4 6.02234 4.55103 5.5 5.23077 5.5H18.7692C19.449 5.5 20 6.02234 20 6.66667V9C20 9.64433 19.449 10.1667 18.7692 10.1667M10.1538 13.6667H13.8462"
+                                    stroke-width="1.42857"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
                                 ></path>
                             </svg>
-                            Products
+                            <span> Products</span>
                         </Link>
                         <Link
                             href={'/settings/vendor-information'}
-                            className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
+                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
                                 pathname.includes('/settings') &&
                                 'bg-[#4F80E1] text-white'
                             }`}
@@ -197,15 +199,37 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     </nav>
                 </div>
                 <div className="absolute bottom-0">
-                    <Link
-                        href={'/dashboard'}
+                    {/* <Link
+                        href={'/'}
                         className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md  ${
                             pathname === '/dashboard' &&
                             'bg-[#4F80E1] text-white'
                         }`}
                     >
                         Logout
-                    </Link>
+                    </Link> */}
+                    <Button
+                        className="bg-transparent text-black hover:bg-transparent flex gap-3 w-full"
+                        onClick={handleLogout}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            stroke="currentColor"
+                        >
+                            <path
+                                id="Vector"
+                                d="M11.8571 13V15.2857C11.8571 15.5888 11.7367 15.8796 11.5224 16.0938C11.3081 16.3081 11.0174 16.4286 10.7143 16.4286H2.71427C2.41116 16.4286 2.12047 16.3081 1.90615 16.0938C1.69182 15.8796 1.57141 15.5888 1.57141 15.2857V2.7143C1.57141 2.41119 1.69182 2.1205 1.90615 1.90618C2.12047 1.69185 2.41116 1.57144 2.71427 1.57144H10.7143C11.0174 1.57144 11.3081 1.69185 11.5224 1.90618C11.7367 2.1205 11.8571 2.41119 11.8571 2.7143V5.00001M8.42855 9.00001H16.4286M16.4286 9.00001L14.1428 6.7143M16.4286 9.00001L14.1428 11.2857"
+                                stroke-width="1.43"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            ></path>
+                        </svg>
+                        Logout
+                    </Button>
                 </div>
             </aside>
             <div className="w-full flex-1 lg:ml-64 overflow-x-hidden">
@@ -217,7 +241,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             viewBox="0 0 24 24"
                             strokeWidth="1.5"
                             stroke="currentColor"
-                            className="w-5 h-5 lg:hidden"
+                            className="w-5 h-5 mr-2 lg:hidden"
                             onClick={() => {
                                 setMobileToggle(true);
                             }}
@@ -231,11 +255,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                     <div className="flex w-full justify-between items-center">
                         <div className="">
-                            <h1 className="text-lg sm:text-xl font-bold">
-                                Welcome {vendor?.businessName}
+                            <h1 className="text-sm sm:text-xl font-bold">
+                                {vendor?.businessName}
                             </h1>
                         </div>
-                        <div className="">
+                        <div className="text-sm">
                             <h1>Monday 12th July</h1>
                         </div>
                     </div>

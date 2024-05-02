@@ -11,8 +11,8 @@ const PersonalInformation = () => {
             <SettingsLayout>
                 <main className="md:px-8 w-full md:border-l">
                     <div className="border-b pb-4 flex justify-between items-center">
-                        <h1 className="text-xl font-bold">
-                            Vendors Information
+                        <h1 className="text-base sm:text-xl font-bold">
+                            Vendor Information
                         </h1>
                         <Link
                             href={'/settings/update-vendor-information'}
@@ -33,43 +33,43 @@ const PersonalInformation = () => {
                             />
                         </div>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 Business Name:
                             </span>
                             <span>{vendor?.businessName}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 Email:
                             </span>
                             <span>{vendor?.email}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 Phone Number:
                             </span>
                             <span>{vendor?.phoneNumber}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 Address:
                             </span>
                             <span>{vendor?.address}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 City:
                             </span>
                             <span>{vendor?.city}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 State:
                             </span>
                             <span>{vendor?.state}</span>
                         </p>
                         <p>
-                            <span className="text-base font-bold mr-2">
+                            <span className="text-sm sm:text-base font-semibold mr-2">
                                 Country:
                             </span>
                             <span>{vendor?.country}</span>

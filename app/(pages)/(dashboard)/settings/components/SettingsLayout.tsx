@@ -9,19 +9,19 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
             <Layout>
-                <section className="lg:col-span-1 px-6 mt-6">
+                <section className="lg:col-span-1 px-4 sm:px-6 mt-6">
                     <h1 className="font-bold mb-2 text-base sm:text-xl">
                         Settings
                     </h1>
                     <p className="text-sm">Manage your account settings</p>
 
-                    <div className="bg-white rounded-md my-6 p-4 md:p-8">
+                    <div className="bg-white rounded-md my-6 p-4 md:p-8 overflow-x-auto">
                         <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row w-full">
-                            <div className="md:min-w-80 md:max-w-90 pr-8 flex flex-row md:flex-col md:space-y-6 font-semibold h-full">
+                            <div className="md:min-w-80 md:max-w-90 pr-8 flex flex-row md:flex-col md:space-y-6 gap-2 font-semibold h-full">
                                 <Link
                                     href={'/settings/vendor-information'}
-                                    className={`flex items-center font-medium hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md  ${
-                                        pathname.includes('/vendor') &&
+                                    className={`flex items-center font-medium text-xs sm:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md  ${
+                                        pathname.includes('vendor') &&
                                         'bg-[#F6F8FF] text-[#4F80E1]'
                                     }`}
                                 >
@@ -32,7 +32,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-5 h-5 mr-4"
+                                            className="w-5 h-5 sm:mr-4"
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -45,7 +45,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                 </Link>
                                 <Link
                                     href={'/settings/security'}
-                                    className={`flex items-center font-medium hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md  ${
+                                    className={`flex items-center font-medium text-xs sm:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md  ${
                                         pathname === '/settings/security' &&
                                         'bg-[#F6F8FF] text-[#4F80E1]'
                                     }`}
@@ -57,7 +57,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-5 h-5 mr-4"
+                                            className="w-5 h-5 sm:mr-4"
                                         >
                                             <path
                                                 strokeLinecap="round"
