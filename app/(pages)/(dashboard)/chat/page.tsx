@@ -18,7 +18,7 @@ const Chat = () => {
     const scrollRef = useRef<any>();
 
     useEffect(() => {
-        socket.current = io('ws://https://tradetrove-backend.onrender.com');
+        socket.current = io('https://tradetrove-backend.onrender.com');
         socket.current?.on('getMessage', (data) => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -35,7 +35,7 @@ const Chat = () => {
     }, [arrivalMessage]);
 
     useEffect(() => {
-        socket.current?.emit('addUser', vendor?.id);
+        socket.current?.emit('addUser', vendor?._id);
         socket.current?.on('getUsers', (users: any) => console.log(users));
     }, []);
 
@@ -43,7 +43,7 @@ const Chat = () => {
         const getConversations = async () => {
             try {
                 const res = await axios.get(
-                    `https://tradetrove-backend.onrender.com/api/v1/conversation/${vendor?.id}`
+                    `https://tradetrove-backend.onrender.com/api/v1/conversation/${vendor?._id}`
                 );
                 setConversations(res.data.conversation);
             } catch (error) {
@@ -51,7 +51,7 @@ const Chat = () => {
             }
         };
         getConversations();
-    }, []);
+    }, [vendor]);
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -68,15 +68,17 @@ const Chat = () => {
         };
         fetchMessages();
     }, [currentChat, messages]);
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behaviour: 'smooth' });
     }, [messages]);
+
     const handleSubmit = async () => {
         if (messageText && currentChat) {
             socket.current?.emit('sendMessage', {
-                senderId: vendor?.id,
+                senderId: vendor?._id,
                 receiverId: currentChat.members.find(
-                    (memberId: string) => memberId !== vendor?.id
+                    (memberId: string) => memberId !== vendor?._id
                 ),
                 text: messageText,
             });
@@ -85,7 +87,7 @@ const Chat = () => {
                     'https://tradetrove-backend.onrender.com/api/v1/message//send',
                     {
                         conversationId: currentChat._id,
-                        sender: vendor?.id,
+                        sender: vendor?._id,
                         text: messageText,
                     }
                 );
@@ -111,7 +113,7 @@ const Chat = () => {
                                 >
                                     {/* <Conversation
                                         conversation={conversation}
-                                        currentUser="6620e4f3481bad684043e7b0"
+                                        currentUser={vendor._id}
                                     /> */}
                                 </div>
                             ))}
@@ -129,7 +131,7 @@ const Chat = () => {
                                                 message={message}
                                                 own={
                                                     message.sender ===
-                                                    vendor?.id
+                                                    vendor?._id
                                                 }
                                             />
                                         </div>

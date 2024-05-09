@@ -1,4 +1,5 @@
 export interface VendorProps {
+    _id?: string;
     id?: string;
     businessName?: string;
     email?: string;
