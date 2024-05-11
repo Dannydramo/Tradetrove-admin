@@ -13,6 +13,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const { vendor, setVendor } = VendorStore();
     const router = useRouter();
+    const requiredFields = [
+        'businessName',
+        'email',
+        'phoneNumber',
+        'address',
+        'city',
+        'state',
+        'country',
+    ];
+
+    const isDetailsIncomplete = requiredFields.some(
+        (field) => !vendor?.[field]
+    );
 
     useEffect(() => {
         const fetchVendorDetails = async () => {
@@ -199,15 +212,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     </nav>
                 </div>
                 <div className="absolute bottom-0">
-                    {/* <Link
-                        href={'/'}
-                        className={`flex items-center font-medium space-x-2 px-6 py-3 rounded-md  ${
-                            pathname === '/dashboard' &&
-                            'bg-[#4F80E1] text-white'
-                        }`}
-                    >
-                        Logout
-                    </Link> */}
                     <Button
                         className="bg-transparent text-black hover:bg-transparent flex gap-3 w-full"
                         onClick={handleLogout}
@@ -264,6 +268,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </div>
                     </div>
                 </header>
+                {isDetailsIncomplete && (
+                    <div className="bg-red-400 text-[10px] text-white text-center py-1">
+                        Please fill in all your details in the settings page.
+                    </div>
+                )}
                 <main>{children}</main>
             </div>
         </section>

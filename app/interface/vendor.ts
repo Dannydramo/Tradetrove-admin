@@ -10,4 +10,5 @@ export interface VendorProps {
     country?: string;
     logo?: string;
     description?: string;
+    [key: string]: string | undefined;
 }

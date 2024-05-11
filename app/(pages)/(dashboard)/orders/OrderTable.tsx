@@ -95,7 +95,7 @@ const OrderTable = () => {
                             {order.shippingAddress.state},
                         </TableCell>
                         <TableCell>{order.paymentStatus}</TableCell>
-                        <TableCell>${order.totalPrice.toFixed(2)}</TableCell>
+                        <TableCell>₦{order.totalPrice.toFixed(2)}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
@@ -105,7 +105,7 @@ const OrderTable = () => {
                     <TableCell colSpan={8}>Total Order Amount</TableCell>
 
                     <TableCell>
-                        $
+                        ₦
                         {orderData
                             .reduce(
                                 (total, order) => total + order.totalPrice,
