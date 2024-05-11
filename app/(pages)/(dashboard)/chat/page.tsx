@@ -111,10 +111,10 @@ const Chat = () => {
                                     onClick={() => setCurrentChat(conversation)}
                                     key={conversation._id}
                                 >
-                                    {/* <Conversation
+                                    <Conversation
                                         conversation={conversation}
-                                        currentUser={vendor._id}
-                                    /> */}
+                                        currentUser={vendor?._id}
+                                    />
                                 </div>
                             ))}
                         </div>

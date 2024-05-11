@@ -98,3 +98,20 @@ export const getChartData = async () => {
     }
     return { status, data };
 };
+
+export const getUserDetailsById = async (userId: string) => {
+    try {
+        const response = await Axios({
+            url: `vendor/get-user-details?userId=${userId}`,
+            method: 'get',
+        });
+
+        status = 200;
+        message = response.message;
+        data = response.data;
+    } catch (err: any) {
+        status = err.response.status;
+        message = err.response.data.message;
+    }
+    return { status, message, data };
+};
