@@ -211,7 +211,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                         <Link
                             href={'/chat'}
-                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md`}
+                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md ${
+                                pathname === '/chat' &&
+                                'bg-[#4F80E1] text-white'
+                            }`}
                         >
                             <span>
                                 <svg
