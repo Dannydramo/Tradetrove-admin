@@ -6,6 +6,7 @@ import Layout from '@/app/components/Layout';
 import Conversation from './_component/Conversation';
 import Message from './_component/Message';
 import { VendorStore } from '@/app/store/vendorStore';
+import { useRouter } from 'next/navigation';
 
 const Chat = () => {
     const { vendor } = VendorStore();
@@ -16,6 +17,10 @@ const Chat = () => {
     const [arrivalMessage, setArrivalMessage] = useState<any>(null);
     const socket = useRef<Socket | undefined>();
     const scrollRef = useRef<any>();
+    const router = useRouter();
+    useEffect(() => {
+        router.refresh();
+    }, []);
 
     useEffect(() => {
         socket.current = io('https://tradetrove-backend.onrender.com');
@@ -103,7 +108,7 @@ const Chat = () => {
         <Layout>
             <div className="sm:flex sm:flex-row h-[calc(100vh-110px)] m-4">
                 <div className="chatMenu">
-                    <div className="p-4 h-[100%] bg-blue-500 rounded-md ">
+                    <div className="p-4 h-[100%] bg-white rounded-md ">
                         <div className="flex flex-row sm:flex-col">
                             {conversations.map((conversation: any) => (
                                 <div
