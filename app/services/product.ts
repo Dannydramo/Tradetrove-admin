@@ -1,5 +1,4 @@
 import { Axios } from '../helpers/axiosHelper';
-import { getCookie } from 'cookies-next';
 import { ProductProps } from '../interface/product';
 
 let status: number;
@@ -11,17 +10,13 @@ export const addProduct = async (products: ProductProps, images: string[]) => {
         ...products,
         images,
     };
-    const token = getCookie('token');
+
     try {
         const response = await Axios({
             url: 'product/create',
             method: 'post',
             body: payload,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
-        console.log(response);
 
         status = 200;
         message = response.message;
@@ -34,14 +29,10 @@ export const addProduct = async (products: ProductProps, images: string[]) => {
 };
 
 export const getProductsByVendor = async () => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: `vendor/products`,
             method: 'get',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;
@@ -75,15 +66,12 @@ export const editProduct = async (products: ProductProps) => {
     const payload = {
         ...products,
     };
-    const token = getCookie('token');
+
     try {
         const response = await Axios({
             url: `/product/edit/${payload._id}`,
             method: 'patch',
             body: payload,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;
@@ -97,14 +85,10 @@ export const editProduct = async (products: ProductProps) => {
 };
 
 export const deleteProductById = async (payload: string) => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: `/product/delete/${payload}`,
             method: 'delete',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;

@@ -6,7 +6,6 @@ import {
     RegisterProps,
     ResetPasswordProps,
 } from '../interface/onboarding';
-import { getCookie, setCookie } from 'cookies-next';
 
 let status: number;
 let message: string;
@@ -23,10 +22,6 @@ export const signupVendor = async (payload: RegisterProps) => {
         status = 200;
         message = response.message;
         data = response.data.user;
-        setCookie('token', response.token, {
-            secure: true,
-            maxAge: 60 * 6 * 24,
-        });
     } catch (err: any) {
         status = err.response.status;
         message = err.response.data.message;
@@ -45,15 +40,28 @@ export const loginVendor = async (payload: LoginProps) => {
         status = 200;
         message = response.message;
         data = response.data.user;
-        setCookie('token', response.token, {
-            secure: true,
-            maxAge: 60 * 6 * 24,
-        });
     } catch (err: any) {
         status = err.response.status;
         message = err.response.data.message;
     }
     return { status, message, data };
+};
+
+export const logoutVendor = async () => {
+    try {
+        const response = await Axios({
+            url: 'vendor/auth/logout',
+            method: 'get',
+        });
+
+        status = 200;
+        message = response.message;
+        data = response.data;
+    } catch (err: any) {
+        status = err.response.status;
+        message = err.response.data.message;
+    }
+    return { status, message };
 };
 
 export const forgotPassword = async (payload: ForgotPasswordProps) => {
@@ -95,15 +103,11 @@ export const resetPassword = async (
 };
 
 export const changePassword = async (payload: ChangePasswordProps) => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: 'user/auth/change-password',
             method: 'patch',
             body: payload,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;

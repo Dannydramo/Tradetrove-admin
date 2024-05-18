@@ -1,5 +1,4 @@
 import { Axios } from '../helpers/axiosHelper';
-import { getCookie } from 'cookies-next';
 import { VendorProps } from '../interface/vendor';
 
 let status: number;
@@ -7,14 +6,10 @@ let message: string;
 let data: any;
 
 export const getVendorDetails = async () => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: 'vendor/get-vendor-details',
             method: 'get',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;
@@ -31,7 +26,6 @@ export const updateVendorDetails = async (
     vendor: VendorProps,
     logo: string
 ) => {
-    const token = getCookie('token');
     const payload = {
         ...vendor,
         logo,
@@ -42,9 +36,6 @@ export const updateVendorDetails = async (
             url: 'vendor/update-details',
             method: 'patch',
             body: payload,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;
@@ -58,14 +49,10 @@ export const updateVendorDetails = async (
 };
 
 export const getVendorStatistics = async () => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: 'vendor/statistics',
             method: 'get',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;
@@ -79,14 +66,10 @@ export const getVendorStatistics = async () => {
 };
 
 export const getChartData = async () => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: 'vendor/monthly-amount',
             method: 'get',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;

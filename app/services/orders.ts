@@ -1,19 +1,14 @@
 import { Axios } from '../helpers/axiosHelper';
-import { getCookie } from 'cookies-next';
 
 let status: number;
 let message: string;
 let data: any;
 
 export const getAllOrders = async () => {
-    const token = getCookie('token');
     try {
         const response = await Axios({
             url: 'orders/all',
             method: 'get',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
         });
 
         status = 200;

@@ -7,6 +7,8 @@ import { getVendorDetails } from '../services/vendor';
 import { VendorStore } from '../store/vendorStore';
 import { Button } from '@/components/ui/button';
 import { deleteCookie } from 'cookies-next';
+import { logoutVendor } from '../services/onboarding';
+import { toast } from 'sonner';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [mobileToggle, setMobileToggle] = useState(false);
@@ -43,8 +45,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         fetchVendorDetails();
     }, []);
 
-    const handleLogout = () => {
-        deleteCookie('token');
+    const handleLogout = async () => {
+        const { status, message } = await logoutVendor();
+        if (status !== 200) {
+            return;
+        }
+        toast.success(message);
         router.replace('/login');
     };
 
