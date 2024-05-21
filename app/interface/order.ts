@@ -4,7 +4,7 @@ interface User {
     _id: string;
     username: string;
     email: string;
-    orders: any[]; // Define the type for orders if needed
+    orders: Order[];
     updated_at: string | null;
     created_at: string;
     __v: number;
