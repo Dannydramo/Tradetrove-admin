@@ -27,7 +27,7 @@ const ProductForm = ({
         price: initialValues?.price || '',
         inStock: initialValues?.inStock || true,
         images: initialValues?.images || [],
-        _id: initialValues?._id,
+        _id: initialValues && initialValues?._id,
     });
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [files, setFiles] = useState<any>([]);
@@ -82,15 +82,7 @@ const ProductForm = ({
             .validate(product, { abortEarly: false })
             .then(async () => {
                 setErrors({});
-                try {
-                    setIsLoading(true);
-
-                    await submitProduct();
-                } catch (error) {
-                    toast.error('Unable to process form submission');
-                    setIsLoading(false);
-                    return;
-                }
+                await submitProduct();
             })
             .catch((validationErrors) => {
                 const errorsObj: { [key: string]: string } = {};
@@ -104,39 +96,36 @@ const ProductForm = ({
     };
 
     const submitProduct = async () => {
-        if (isEditing) {
-            const products = {
+        try {
+            setIsLoading(true);
+
+            const updatedImages =
+                files.length === 0
+                    ? initialValues?.images || []
+                    : await uploadImagesToCloudinary(files);
+
+            const productToSubmit: ProductProps = {
                 ...product,
-                images:
-                    files.length === 0
-                        ? initialValues?.images
-                        : await uploadImagesToCloudinary(files),
+                images: updatedImages,
             };
-            const { status, message } = await editProduct(products);
+
+            const { status, message } = isEditing
+                ? await editProduct(productToSubmit)
+                : await addProduct(productToSubmit);
+
             if (status !== 200) {
                 toast.error(message);
                 setIsLoading(false);
                 return;
             }
-        } else {
-            const uploadedImageUrls = await uploadImagesToCloudinary(files);
-            if (!uploadedImageUrls) {
-                toast.error('Please try again later');
-                setIsLoading(false);
-                return;
-            }
-            const { status, message } = await addProduct(
-                product,
-                uploadedImageUrls
-            );
-            if (status !== 200) {
-                toast.error(message);
-                setIsLoading(false);
-                return;
-            }
+
+            setIsLoading(false);
+            router.push('/products');
+        } catch (error) {
+            toast.error('Unable to process form submission');
+            setIsLoading(false);
+            return;
         }
-        setIsLoading(false);
-        router.push('/products');
     };
 
     return (

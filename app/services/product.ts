@@ -5,10 +5,9 @@ let status: number;
 let message: string;
 let data: any;
 
-export const addProduct = async (products: ProductProps, images: string[]) => {
+export const addProduct = async (products: ProductProps) => {
     const payload = {
         ...products,
-        images,
     };
 
     try {
