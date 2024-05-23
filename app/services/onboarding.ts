@@ -105,7 +105,7 @@ export const resetPassword = async (
 export const changePassword = async (payload: ChangePasswordProps) => {
     try {
         const response = await Axios({
-            url: 'user/auth/change-password',
+            url: 'vendor/auth/change-password',
             method: 'patch',
             body: payload,
         });
