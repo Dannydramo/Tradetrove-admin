@@ -22,16 +22,18 @@ const PersonalInformation = () => {
                         </Link>
                     </div>
                     <div className="mt-4 flex flex-col space-y-4 text-sm">
-                        <div className="w-[70px] h-[70px]">
-                            <Image
-                                src={vendor?.logo!}
-                                width={70}
-                                height={70}
-                                loading="lazy"
-                                alt="Vendor Logo"
-                                className="w-full h-full rounded-full"
-                            />
-                        </div>
+                        {vendor && (
+                            <div className="w-[70px] h-[70px]">
+                                <Image
+                                    src={vendor?.logo!}
+                                    width={70}
+                                    height={70}
+                                    loading="lazy"
+                                    alt="Vendor Logo"
+                                    className="w-full h-full rounded-full"
+                                />
+                            </div>
+                        )}
                         <p>
                             <span className="text-sm sm:text-base font-semibold mr-2">
                                 Business Name:
@@ -44,36 +46,41 @@ const PersonalInformation = () => {
                             </span>
                             <span>{vendor?.email}</span>
                         </p>
-                        <p>
-                            <span className="text-sm sm:text-base font-semibold mr-2">
-                                Phone Number:
-                            </span>
-                            <span>{vendor?.phoneNumber}</span>
-                        </p>
-                        <p>
-                            <span className="text-sm sm:text-base font-semibold mr-2">
-                                Address:
-                            </span>
-                            <span>{vendor?.address}</span>
-                        </p>
-                        <p>
-                            <span className="text-sm sm:text-base font-semibold mr-2">
-                                City:
-                            </span>
-                            <span>{vendor?.city}</span>
-                        </p>
-                        <p>
-                            <span className="text-sm sm:text-base font-semibold mr-2">
-                                State:
-                            </span>
-                            <span>{vendor?.state}</span>
-                        </p>
-                        <p>
-                            <span className="text-sm sm:text-base font-semibold mr-2">
-                                Country:
-                            </span>
-                            <span>{vendor?.country}</span>
-                        </p>
+                        {vendor && (
+                            <>
+                                {' '}
+                                <p>
+                                    <span className="text-sm sm:text-base font-semibold mr-2">
+                                        Phone Number:
+                                    </span>
+                                    <span>{vendor?.phoneNumber}</span>
+                                </p>
+                                <p>
+                                    <span className="text-sm sm:text-base font-semibold mr-2">
+                                        Address:
+                                    </span>
+                                    <span>{vendor?.address}</span>
+                                </p>
+                                <p>
+                                    <span className="text-sm sm:text-base font-semibold mr-2">
+                                        City:
+                                    </span>
+                                    <span>{vendor?.city}</span>
+                                </p>
+                                <p>
+                                    <span className="text-sm sm:text-base font-semibold mr-2">
+                                        State:
+                                    </span>
+                                    <span>{vendor?.state}</span>
+                                </p>
+                                <p>
+                                    <span className="text-sm sm:text-base font-semibold mr-2">
+                                        Country:
+                                    </span>
+                                    <span>{vendor?.country}</span>
+                                </p>
+                            </>
+                        )}
                     </div>
                 </main>
             </SettingsLayout>
