@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             try {
                 const { message, data, status } = await getVendorDetails();
                 if (status !== 200) {
-                    router.replace('/login');
+                    // router.replace('/login');
                     return;
                 }
 
@@ -186,6 +186,31 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             <span> Products</span>
                         </Link>
                         <Link
+                            href={'/chat'}
+                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md ${
+                                pathname === '/chat' &&
+                                'bg-[#4F80E1] text-white'
+                            }`}
+                        >
+                            <span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-5 h-5 mr-4"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                                    />
+                                </svg>
+                            </span>
+                            <span>Messages</span>
+                        </Link>
+                        <Link
                             href={'/settings/vendor-information'}
                             className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
                                 pathname.includes('/settings') &&
@@ -214,31 +239,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                                 </svg>
                             </span>
                             <span>Settings</span>
-                        </Link>
-                        <Link
-                            href={'/chat'}
-                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md ${
-                                pathname === '/chat' &&
-                                'bg-[#4F80E1] text-white'
-                            }`}
-                        >
-                            <span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5 mr-4"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-                                    />
-                                </svg>
-                            </span>
-                            <span>Messages</span>
                         </Link>
                     </nav>
                 </div>
@@ -299,7 +299,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </div>
                     </div>
                 </header>
-                {isDetailsIncomplete && (
+                {vendor && isDetailsIncomplete && (
                     <div className="bg-red-400 text-[10px] text-white text-center py-1">
                         Please fill in all your details in the settings page.
                     </div>
