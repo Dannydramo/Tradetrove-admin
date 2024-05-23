@@ -1,6 +1,6 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const middleware = (request: NextRequest) => {
+export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
     const tokenValue = token?.value;
 
@@ -8,7 +8,7 @@ export const middleware = (request: NextRequest) => {
         return NextResponse.redirect(new URL('/login', request.url));
     }
     return NextResponse.next();
-};
+}
 
 export const config = {
     matcher: [
