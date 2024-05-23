@@ -71,7 +71,7 @@ const OrderTable = () => {
                                     </TableCell>
                                     <TableCell> ₦{product.price}</TableCell>
                                     <TableCell>
-                                        {order.totalPrice / product.price!}
+                                        {order.totalPrice / +product.price}
                                     </TableCell>
                                     <TableCell>
                                         {order.shippingAddress.line1},
