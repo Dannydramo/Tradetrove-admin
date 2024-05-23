@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { getVendorDetails } from '../services/vendor';
 import { VendorStore } from '../store/vendorStore';
 import { Button } from '@/components/ui/button';
-import { deleteCookie } from 'cookies-next';
 import { logoutVendor } from '../services/onboarding';
 import { toast } from 'sonner';
 
@@ -29,11 +28,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         (field) => !vendor?.[field]
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fetchVendorDetails = async () => {
             try {
                 const { message, data, status } = await getVendorDetails();
                 if (status !== 200) {
+                    router.replace('/login');
                     return;
                 }
 
@@ -178,9 +178,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             >
                                 <path
                                     d="M5.23077 10.1667H18.7692M5.23077 10.1667V18.3333C5.23077 18.6427 5.36044 18.9395 5.59125 19.1583C5.82207 19.377 6.13511 19.5 6.46154 19.5H17.5385C17.8649 19.5 18.178 19.377 18.4087 19.1583C18.6395 18.9395 18.7692 18.6427 18.7692 18.3333V10.1667M5.23077 10.1667C4.55103 10.1667 4 9.64433 4 9V6.66667C4 6.02234 4.55103 5.5 5.23077 5.5H18.7692C19.449 5.5 20 6.02234 20 6.66667V9C20 9.64433 19.449 10.1667 18.7692 10.1667M10.1538 13.6667H13.8462"
-                                    stroke-width="1.42857"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="1.42857"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 ></path>
                             </svg>
                             <span> Products</span>
@@ -258,9 +258,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             <path
                                 id="Vector"
                                 d="M11.8571 13V15.2857C11.8571 15.5888 11.7367 15.8796 11.5224 16.0938C11.3081 16.3081 11.0174 16.4286 10.7143 16.4286H2.71427C2.41116 16.4286 2.12047 16.3081 1.90615 16.0938C1.69182 15.8796 1.57141 15.5888 1.57141 15.2857V2.7143C1.57141 2.41119 1.69182 2.1205 1.90615 1.90618C2.12047 1.69185 2.41116 1.57144 2.71427 1.57144H10.7143C11.0174 1.57144 11.3081 1.69185 11.5224 1.90618C11.7367 2.1205 11.8571 2.41119 11.8571 2.7143V5.00001M8.42855 9.00001H16.4286M16.4286 9.00001L14.1428 6.7143M16.4286 9.00001L14.1428 11.2857"
-                                stroke-width="1.43"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="1.43"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             ></path>
                         </svg>
                         Logout
