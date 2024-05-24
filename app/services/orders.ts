@@ -20,3 +20,20 @@ export const getAllOrders = async () => {
     }
     return { status, message, data };
 };
+
+export const getRecentOrders = async () => {
+    try {
+        const response = await Axios({
+            url: 'orders/vendor-recent-order',
+            method: 'get',
+        });
+
+        status = 200;
+        message = response.message;
+        data = response.data;
+    } catch (err: any) {
+        status = err.response.status;
+        message = err.response.data.message;
+    }
+    return { status, message, data };
+};

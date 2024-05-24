@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import { toast } from 'sonner';
 import { signupVendor } from '@/app/services/onboarding';
 import { useRouter } from 'next/navigation';
+import { setCookie } from 'cookies-next';
 
 const SignupForm = () => {
     const [formData, setFormData] = useState<RegisterProps>({
@@ -58,6 +59,10 @@ const SignupForm = () => {
                 }
                 toast.success(message);
                 setIsLoading(false);
+                setCookie('isLoggedIn', 'true', {
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                });
                 router.replace('/settings/create-vendor-information');
             } catch (error) {
                 toast.error('Unable to process form submission');

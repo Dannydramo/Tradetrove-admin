@@ -2,18 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getVendorDetails } from '../services/vendor';
 import { VendorStore } from '../store/vendorStore';
 import { Button } from '@/components/ui/button';
 import { logoutVendor } from '../services/onboarding';
 import { toast } from 'sonner';
+import { deleteCookie } from 'cookies-next';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [mobileToggle, setMobileToggle] = useState(false);
     const pathname = usePathname();
     const { vendor, setVendor } = VendorStore();
     const router = useRouter();
+
     const requiredFields = [
         'businessName',
         'email',
@@ -27,13 +29,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const isDetailsIncomplete = requiredFields.some(
         (field) => !vendor?.[field]
     );
-
-    useLayoutEffect(() => {
+    useEffect(() => {
         const fetchVendorDetails = async () => {
             try {
                 const { message, data, status } = await getVendorDetails();
                 if (status !== 200) {
-                    // router.replace('/login');
                     return;
                 }
 
@@ -51,6 +51,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             return;
         }
         toast.success(message);
+        deleteCookie('isLoggedIn');
         router.replace('/login');
     };
 
@@ -164,8 +165,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                         <Link
                             href={'/products'}
-                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white  ${
-                                pathname.includes('/products' || 'product') &&
+                            className={`flex items-center font-medium text-xs sm:text-base space-x-2 px-6 py-3 rounded-md transition-all duration-700 hover:bg-[#4F80E1] hover:text-white ${
+                                pathname.includes('products') &&
+                                'bg-[#4F80E1] text-white'
+                            }  ${
+                                pathname.includes('product') &&
                                 'bg-[#4F80E1] text-white'
                             }`}
                         >
@@ -187,7 +191,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         </Link>
                         <Link
                             href={'/chat'}
-                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#F6F8FF] hover:text-[#4F80E1] space-x-2 px-6 py-3 rounded-md ${
+                            className={`flex items-center font-medium text-xs sm:text-sm md:text-base hover:bg-[#4F80E1] hover:text-white space-x-2 px-6 py-3 rounded-md transition-all duration-700 ${
                                 pathname === '/chat' &&
                                 'bg-[#4F80E1] text-white'
                             }`}

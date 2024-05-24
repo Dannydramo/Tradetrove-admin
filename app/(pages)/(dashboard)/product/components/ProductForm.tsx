@@ -185,7 +185,7 @@ const ProductForm = ({
                         <select
                             name="inStock"
                             value={product.inStock.toString()}
-                            className="w-full p-2 border rounded-md"
+                            className="w-full p-2 h-12 border rounded-md"
                             onChange={handleStockChange}
                         >
                             <option value="true">In Stock</option>

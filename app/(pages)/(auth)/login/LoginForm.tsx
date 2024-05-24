@@ -3,7 +3,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { loginValidationSchema } from '@/app/validators/onboarding';
-
 import React, {
     ChangeEvent,
     ChangeEventHandler,
@@ -16,7 +15,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { loginVendor } from '@/app/services/onboarding';
 import { useRouter } from 'next/navigation';
-
+import { setCookie } from 'cookies-next';
 const LoginForm = () => {
     const [formData, setFormData] = useState<LoginProps>({
         email: '',
@@ -26,6 +25,7 @@ const LoginForm = () => {
     const router = useRouter();
     const [togglePassword, setTogglePassword] = useState<boolean>(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    // const { setIsLoggedIn } = VendorStore();
 
     const handleValueChange: ChangeEventHandler<HTMLInputElement> = (
         event: ChangeEvent<HTMLInputElement>
@@ -55,6 +55,12 @@ const LoginForm = () => {
                 }
                 toast.success(message);
                 setIsLoading(false);
+                setCookie('isLoggedIn', 'true', {
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                });
+                router.replace('/');
+                localStorage.setItem('isLoggedIn', 'true');
                 router.replace('/');
             } catch (error) {
                 toast.error('Unable to process form submission');

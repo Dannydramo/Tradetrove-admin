@@ -1,6 +1,4 @@
 'use client';
-import { getAllOrders } from '@/app/services/orders';
-import React, { useEffect, useState } from 'react';
 import {
     Table,
     TableBody,
@@ -14,24 +12,8 @@ import {
 import { Order } from '@/app/interface/order';
 import Image from 'next/image';
 
-const OrderTable = () => {
-    const [orderData, setOrderData] = useState<Order[]>([]);
-
-    useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const { status, message, data } = await getAllOrders();
-                if (status !== 200) {
-                    console.log(message);
-                    return;
-                }
-                setOrderData(data);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            }
-        };
-        fetchOrders();
-    }, []);
+const OrderTable = ({ orderData }: { orderData: Order[] }) => {
+    console.log(orderData);
 
     return (
         <>
@@ -118,9 +100,7 @@ const OrderTable = () => {
                 </Table>
             ) : (
                 <>
-                    {' '}
-                    <div className="md:border-l px-6 w-full">
-                        {' '}
+                    <div className="px-6 w-full">
                         <div className="text-center mx-auto mt-12 h-full flex flex-col justify-center items-center">
                             <Image
                                 src="/empty-state.svg"
