@@ -12,6 +12,13 @@ import { uploadImagesToCloudinary } from '@/app/services/upload';
 import { toast } from 'sonner';
 import { addProduct, editProduct } from '@/app/services/product';
 import { useRouter } from 'next/navigation';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 
 const ProductForm = ({
     initialValues,
@@ -65,10 +72,8 @@ const ProductForm = ({
         });
     };
 
-    const handleStockChange: ChangeEventHandler<HTMLSelectElement> = (
-        event
-    ) => {
-        const newValue = event.target.value === 'true';
+    const handleStockChange = (value: string) => {
+        const newValue = value === 'true';
 
         setProduct((prevState) => ({
             ...prevState,
@@ -182,15 +187,22 @@ const ProductForm = ({
                     </div>
                     <div className="">
                         <Label className="mb-2 text-sm">Product In Stock</Label>
-                        <select
+                        <Select
                             name="inStock"
                             value={product.inStock.toString()}
-                            className="w-full p-2 h-12 border rounded-md"
-                            onChange={handleStockChange}
+                            onValueChange={handleStockChange}
+                            defaultValue={product.inStock.toString()}
                         >
-                            <option value="true">In Stock</option>
-                            <option value="false">Out of Stock</option>
-                        </select>
+                            <SelectTrigger className="w-full h-12">
+                                <SelectValue placeholder="Theme" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="true">In Stock</SelectItem>
+                                <SelectItem value="false">
+                                    Out of Stock
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
                 <div className="mt-6">
@@ -231,7 +243,7 @@ const ProductForm = ({
                 <ul
                     className={` ${
                         files.length !== 0 ? 'border-2 p-2 mt-3 ' : ''
-                    } inline-block`}
+                    } flex gap-6 overflow-scroll`}
                 >
                     {files?.map((file: any) => (
                         <li
