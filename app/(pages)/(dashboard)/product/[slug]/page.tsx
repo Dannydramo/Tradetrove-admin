@@ -48,14 +48,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             <div className="w-full md:w-1/2 lg:h-[60vh]">
                                 <Skeleton className="w-full h-full bg-slate-200 rounded-md" />
                             </div>
-                            <div className="">y</div>
                         </>
                     ) : (
                         <>
                             {productDetails && (
                                 <>
                                     <div className="w-full md:w-1/2">
-                                        <div className="h-[65vh]">
+                                        <div className="min-h-[50vh] sm:min-h-[65vh] bg-gray-200 px-8 flex justify-center items-center">
                                             <Image
                                                 src={
                                                     productDetails?.images[
@@ -65,10 +64,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                                 alt=""
                                                 width={500}
                                                 height={500}
-                                                className="w-full h-full"
+                                                className="w-[300px] h-[300px]"
                                             />
                                         </div>
-                                        <div className="flex space-x-4 mt-6">
+
+                                        <div className="flex space-x-4 mt-6 overflow-scroll lg:overflow-hidden">
                                             {productDetails?.images.map(
                                                 (
                                                     image: string,
@@ -94,7 +94,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                                                                 src={image}
                                                                 height={500}
                                                                 width={500}
-                                                                className="h-full w-full"
+                                                                className="h-full w-full rounded-xl"
                                                                 alt={`Product Image ${index}`}
                                                             />
                                                         </div>
