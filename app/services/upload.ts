@@ -24,6 +24,12 @@ export const uploadImagesToCloudinary = async (
                 {
                     file: base64Data,
                     upload_preset: cloudinaryConfig.uploadPreset,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: false, // Ensure this is false to prevent credential issues
                 }
             );
             uploadedImageUrls.push(response.data.secure_url);
@@ -50,6 +56,12 @@ export const uploadLogoToCloudinary = async (file: File): Promise<string> => {
             {
                 file: base64Data,
                 upload_preset: cloudinaryConfig.uploadPreset,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: false, // Ensure this is false to prevent credential issues
             }
         );
         return response.data.secure_url;

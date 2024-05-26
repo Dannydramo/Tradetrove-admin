@@ -1,11 +1,8 @@
-'use client';
 import React from 'react';
 import SettingsLayout from '../components/SettingsLayout';
 import VendorForm from '../components/VendorForm';
-import { VendorStore } from '@/app/store/vendorStore';
 
 const UpdateVendorInformation = () => {
-    const { vendor } = VendorStore();
     return (
         <>
             <SettingsLayout>
@@ -16,7 +13,7 @@ const UpdateVendorInformation = () => {
                         </h1>
                     </div>
                     <div className="mt-4">
-                        <VendorForm initialValues={vendor!} />
+                        <VendorForm />
                     </div>
                 </main>
             </SettingsLayout>

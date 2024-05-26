@@ -17,17 +17,20 @@ import { updateVendorDetails } from '@/app/services/vendor';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
+import { VendorStore } from '@/app/store/vendorStore';
 
-const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
+const VendorForm = () => {
+    const { vendor: VendorDetails } = VendorStore();
+
     const [vendor, setVendor] = useState<VendorProps>({
-        businessName: initialValues?.businessName || '',
-        email: initialValues?.email || '',
-        phoneNumber: initialValues?.phoneNumber || '',
-        address: initialValues?.address || '',
-        city: initialValues?.city || '',
-        state: initialValues?.state || '',
-        country: initialValues?.country || '',
-        description: initialValues?.description || '',
+        businessName: VendorDetails?.businessName || '',
+        email: VendorDetails?.email || '',
+        phoneNumber: VendorDetails?.phoneNumber || '',
+        address: VendorDetails?.address || '',
+        city: VendorDetails?.city || '',
+        state: VendorDetails?.state || '',
+        country: VendorDetails?.country || '',
+        description: VendorDetails?.description || '',
     });
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -180,7 +183,9 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         placeholder="Business Name"
                         readOnly
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.businessName}
+                        value={
+                            VendorDetails?.businessName || vendor.businessName
+                        }
                         onChange={handleValueChange}
                     />
                 </div>
@@ -191,7 +196,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         name="email"
                         placeholder="vendor@gmail.com"
                         readOnly
-                        value={vendor.email}
+                        value={vendor.email || VendorDetails?.email}
                         className="text-sm outline-none bg-transparent"
                         onChange={handleValueChange}
                     />
@@ -203,7 +208,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         name="phoneNumber"
                         placeholder="0906428263"
                         maxLength={11}
-                        value={vendor.phoneNumber}
+                        value={vendor.phoneNumber || VendorDetails?.phoneNumber}
                         className="text-sm outline-none bg-transparent"
                         onChange={handleValueChange}
                     />
@@ -220,7 +225,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         name="address"
                         placeholder="23, Obalande Street"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.address}
+                        value={vendor.address || VendorDetails?.address}
                         onChange={handleValueChange}
                     />
                     {errors.address && (
@@ -236,7 +241,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         name="city"
                         placeholder="PortHarcourt"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.city}
+                        value={vendor.city || VendorDetails?.city}
                         onChange={handleValueChange}
                     />
                     {errors.city && (
@@ -252,7 +257,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                         name="state"
                         placeholder="Anambra"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.state}
+                        value={vendor.state || VendorDetails?.state}
                         onChange={handleValueChange}
                     />
                     {errors.state && (
@@ -269,7 +274,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                     name="country"
                     placeholder="Nigeria"
                     className="text-sm outline-none w-full bg-transparent"
-                    value={vendor.country}
+                    value={vendor.country || VendorDetails?.country}
                     onChange={handleValueChange}
                 />
                 {errors.country && (
@@ -282,7 +287,7 @@ const VendorForm = ({ initialValues }: { initialValues?: VendorProps }) => {
                 <Label className="mb-2 text-sm">Business Description</Label>
                 <Textarea
                     placeholder="Enter Business Description"
-                    value={vendor.description}
+                    value={vendor.description || VendorDetails?.description}
                     onChange={(e) => {
                         setVendor({
                             ...vendor,
