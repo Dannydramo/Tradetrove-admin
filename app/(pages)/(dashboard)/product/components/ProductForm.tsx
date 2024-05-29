@@ -19,6 +19,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { VendorStore } from '@/app/store/vendorStore';
 
 const ProductForm = ({
     initialValues,
@@ -40,6 +41,7 @@ const ProductForm = ({
     const [files, setFiles] = useState<any>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
+    const { vendor } = VendorStore();
     const onDrop = useCallback((acceptedFiles: (Blob | MediaSource)[]) => {
         if (acceptedFiles?.length) {
             setFiles((files: any[]) => [
@@ -101,6 +103,19 @@ const ProductForm = ({
     };
 
     const submitProduct = async () => {
+        if (
+            !vendor?.city ||
+            !vendor.country ||
+            !vendor.description ||
+            vendor.logo ||
+            !vendor.phoneNumber ||
+            !vendor.state
+        ) {
+            toast.error(
+                'Please fill in all your details before adding or updating a product'
+            );
+            return;
+        }
         try {
             setIsLoading(true);
 

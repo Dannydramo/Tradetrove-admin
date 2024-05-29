@@ -305,7 +305,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </header>
                 {vendor && isDetailsIncomplete && (
                     <div className="bg-red-400 text-[10px] text-white text-center py-1">
-                        Please fill in all your details in the settings page.
+                        Please fill in all your details in the settings page
+                        else you won't be visible in the ecommerce store.
                     </div>
                 )}
                 <main>{children}</main>
