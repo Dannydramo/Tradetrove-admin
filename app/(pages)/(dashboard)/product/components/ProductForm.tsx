@@ -31,7 +31,7 @@ const ProductForm = ({
         productName: initialValues?.productName || '',
         description: initialValues?.description || '',
         category: initialValues?.category || '',
-        price: initialValues?.price || '',
+        price: initialValues?.price || 0,
         inStock: initialValues?.inStock || true,
         images: initialValues?.images || [],
         _id: initialValues && initialValues?._id,

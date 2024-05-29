@@ -1,18 +1,20 @@
 import { ImageResponse } from 'next/og';
 
-// Route segment config
 export const runtime = 'edge';
 
-// Image metadata
-export const alt = 'About Acme';
+export const alt = 'Tradetrove-Admin';
 export const size = {
-    width: 1200,
-    height: 630,
+    width: 720,
+    height: 720,
 };
 
 export const contentType = 'image/png';
 
 export default async function Image() {
+    const interSemiBold = fetch(
+        new URL('./SpaceMono-Regular.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+
     return new ImageResponse(
         (
             <div
@@ -28,14 +30,21 @@ export default async function Image() {
                     justifyContent: 'center',
                     padding: '10px',
                     color: '#4F80E1',
-                    fontFamily: 'Verdana, sans-serif',
                 }}
             >
-                About Acme
+                Tradetrove Admin
             </div>
         ),
         {
             ...size,
+            fonts: [
+                {
+                    name: 'Inter',
+                    data: await interSemiBold,
+                    style: 'normal',
+                    weight: 400,
+                },
+            ],
         }
     );
 }

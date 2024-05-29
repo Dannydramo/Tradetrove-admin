@@ -3,7 +3,7 @@ export interface ProductProps {
     productName: string;
     description: string;
     category: string;
-    price: number | string;
+    price: number;
     inStock: boolean;
     images: string[];
 }
