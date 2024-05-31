@@ -42,6 +42,33 @@ const ProductForm = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
     const { vendor } = VendorStore();
+    const categories = [
+        'Beauty',
+        'Fragrances',
+        'Furniture',
+        'Groceries',
+        'Home Decoration',
+        'kitchen Accessories',
+        'Laptops',
+        'Mens Shirts',
+        'Mens Shoes',
+        'Mens Watches',
+        'Mobile Accessories',
+        'Motorcycle',
+        'Skin Care',
+        'Smartphones',
+        'Sports Accessories',
+        'Sunglasses',
+        'Tablets',
+        'Tops',
+        'Vehicle',
+        'Womens Bags',
+        'Womens Dresses',
+        'Womens Jewellery',
+        'Womens Shoes',
+        'Womens Watches',
+    ];
+
     const onDrop = useCallback((acceptedFiles: (Blob | MediaSource)[]) => {
         if (acceptedFiles?.length) {
             setFiles((files: any[]) => [
@@ -72,6 +99,13 @@ const ProductForm = ({
             ...product,
             [event.target.name]: event.target.value,
         });
+    };
+
+    const handleCategoryChange = (value: string) => {
+        setProduct((prevState) => ({
+            ...prevState,
+            category: value,
+        }));
     };
 
     const handleStockChange = (value: string) => {
@@ -170,14 +204,23 @@ const ProductForm = ({
                     </div>
                     <div className="">
                         <Label className="mb-2 text-sm">Product Category</Label>
-                        <Input
-                            type="text"
+                        <Select
                             name="category"
-                            placeholder="Product Category"
-                            className="text-sm outline-none bg-transparent"
-                            onChange={handleValueChange}
                             value={product.category}
-                        />
+                            onValueChange={handleCategoryChange}
+                            defaultValue={product.category}
+                        >
+                            <SelectTrigger className="w-full h-12">
+                                <SelectValue placeholder="Select Category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {categories.map((category) => (
+                                    <SelectItem key={category} value={category}>
+                                        {category}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                         {errors.category && (
                             <span className="text-red-500 text-sm">
                                 {errors.category}
@@ -209,7 +252,7 @@ const ProductForm = ({
                             defaultValue={product.inStock.toString()}
                         >
                             <SelectTrigger className="w-full h-12">
-                                <SelectValue placeholder="Theme" />
+                                <SelectValue placeholder="Stock Status" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="true">In Stock</SelectItem>
