@@ -298,8 +298,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                                 {vendor?.businessName}
                             </h1>
                         </div>
-                        <div className="text-sm">
-                            <h1>Monday 12th July</h1>
+                        <div className="hidden sm:block">
+                            {new Date().toDateString()}
                         </div>
                     </div>
                 </header>

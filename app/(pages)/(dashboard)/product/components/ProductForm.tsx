@@ -42,6 +42,7 @@ const ProductForm = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
     const { vendor } = VendorStore();
+
     const categories = [
         'Beauty',
         'Fragrances',
@@ -139,11 +140,11 @@ const ProductForm = ({
     const submitProduct = async () => {
         if (
             !vendor?.city ||
-            !vendor.country ||
-            !vendor.description ||
-            vendor.logo ||
-            !vendor.phoneNumber ||
-            !vendor.state
+            !vendor?.country ||
+            !vendor?.description ||
+            !vendor?.logo ||
+            !vendor?.phoneNumber ||
+            !vendor?.state
         ) {
             toast.error(
                 'Please fill in all your details before adding or updating a product'

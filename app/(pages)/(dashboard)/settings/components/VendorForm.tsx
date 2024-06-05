@@ -3,6 +3,7 @@ import React, {
     ChangeEvent,
     ChangeEventHandler,
     useCallback,
+    useEffect,
     useState,
 } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -22,17 +23,26 @@ import { VendorStore } from '@/app/store/vendorStore';
 const VendorForm = () => {
     const { vendor: VendorDetails } = VendorStore();
 
-    const [vendor, setVendor] = useState<VendorProps>({
-        businessName: VendorDetails?.businessName || '',
-        email: VendorDetails?.email || '',
-        phoneNumber: VendorDetails?.phoneNumber || '',
-        address: VendorDetails?.address || '',
-        city: VendorDetails?.city || '',
-        state: VendorDetails?.state || '',
-        country: VendorDetails?.country || '',
-        description: VendorDetails?.description || '',
-    });
+    const initialVendorState: VendorProps = {
+        businessName: '',
+        email: '',
+        phoneNumber: '',
+        address: '',
+        city: '',
+        state: '',
+        country: '',
+        description: '',
+    };
 
+    const [vendor, setVendor] = useState<VendorProps>(
+        VendorDetails || initialVendorState
+    );
+
+    useEffect(() => {
+        if (VendorDetails) {
+            setVendor(VendorDetails);
+        }
+    }, [VendorDetails]);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [file, setFile] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -105,43 +115,65 @@ const VendorForm = () => {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <div className="mb-6 w-full" {...getRootProps()}>
-                <label className="flex flex-col space-y-2">
-                    <span>Upload logo</span>
-                    <input {...getInputProps()} name="logo" />
-                    {isDragActive ? (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-[100px] h-[100px]"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                            />
-                        </svg>
-                    ) : (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-[100px] h-[100px]"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                            />
-                        </svg>
-                    )}
-                </label>
-            </div>
+            {!VendorDetails?.logo ? (
+                <>
+                    {' '}
+                    <div className="mb-6 w-full" {...getRootProps()}>
+                        <label className="flex flex-col space-y-2">
+                            <span>Upload logo</span>
+                            <input {...getInputProps()} name="logo" />
+                            {isDragActive ? (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-[100px] h-[100px]"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                    />
+                                </svg>
+                            ) : (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-[100px] h-[100px]"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                    />
+                                </svg>
+                            )}
+                        </label>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="mb-6 w-full" {...getRootProps()}>
+                        {' '}
+                        <input {...getInputProps()} name="logo" />
+                        <Image
+                            src={VendorDetails.logo}
+                            alt={'Vendor Logo'}
+                            width={50}
+                            height={50}
+                            className="w-[100px] h-[100px] rounded-full"
+                        />
+                        <p className="py-2 bg-[#4F80E1] text-white px-6 rounded-sm mt-6 w-fit cursor-pointer">
+                            Change Logo
+                        </p>
+                    </div>
+                </>
+            )}
 
             {file && (
                 <div className="mt-3">
@@ -183,9 +215,7 @@ const VendorForm = () => {
                         placeholder="Business Name"
                         readOnly
                         className="text-sm outline-none bg-transparent"
-                        value={
-                            VendorDetails?.businessName || vendor.businessName
-                        }
+                        value={vendor.businessName}
                         onChange={handleValueChange}
                     />
                 </div>
@@ -196,7 +226,7 @@ const VendorForm = () => {
                         name="email"
                         placeholder="vendor@gmail.com"
                         readOnly
-                        value={vendor.email || VendorDetails?.email}
+                        value={vendor.email}
                         className="text-sm outline-none bg-transparent"
                         onChange={handleValueChange}
                     />
@@ -208,7 +238,7 @@ const VendorForm = () => {
                         name="phoneNumber"
                         placeholder="0906428263"
                         maxLength={11}
-                        value={vendor.phoneNumber || VendorDetails?.phoneNumber}
+                        value={vendor.phoneNumber}
                         className="text-sm outline-none bg-transparent"
                         onChange={handleValueChange}
                     />
@@ -225,7 +255,7 @@ const VendorForm = () => {
                         name="address"
                         placeholder="23, Obalande Street"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.address || VendorDetails?.address}
+                        value={vendor.address}
                         onChange={handleValueChange}
                     />
                     {errors.address && (
@@ -241,7 +271,7 @@ const VendorForm = () => {
                         name="city"
                         placeholder="PortHarcourt"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.city || VendorDetails?.city}
+                        value={vendor.city}
                         onChange={handleValueChange}
                     />
                     {errors.city && (
@@ -257,7 +287,7 @@ const VendorForm = () => {
                         name="state"
                         placeholder="Anambra"
                         className="text-sm outline-none bg-transparent"
-                        value={vendor.state || VendorDetails?.state}
+                        value={vendor.state}
                         onChange={handleValueChange}
                     />
                     {errors.state && (
@@ -274,7 +304,7 @@ const VendorForm = () => {
                     name="country"
                     placeholder="Nigeria"
                     className="text-sm outline-none w-full bg-transparent"
-                    value={vendor.country || VendorDetails?.country}
+                    value={vendor.country}
                     onChange={handleValueChange}
                 />
                 {errors.country && (
@@ -287,7 +317,7 @@ const VendorForm = () => {
                 <Label className="mb-2 text-sm">Business Description</Label>
                 <Textarea
                     placeholder="Enter Business Description"
-                    value={vendor.description || VendorDetails?.description}
+                    value={vendor.description}
                     onChange={(e) => {
                         setVendor({
                             ...vendor,

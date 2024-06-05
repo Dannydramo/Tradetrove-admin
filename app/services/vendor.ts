@@ -30,6 +30,7 @@ export const updateVendorDetails = async (
         ...vendor,
         logo,
     };
+    console.log(payload);
 
     try {
         const response = await Axios({
