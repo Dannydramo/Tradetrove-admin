@@ -60,7 +60,7 @@ const SignupForm = () => {
                 toast.success(message);
                 setIsLoading(false);
                 setCookie('isLoggedIn', 'true', {
-                    maxAge: 30 * 24 * 60 * 60,
+                    maxAge: 10 * 60 * 60 * 1000,
                     path: '/',
                 });
                 router.replace('/settings/create-vendor-information');
