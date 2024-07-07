@@ -13,7 +13,6 @@ import { Order } from '@/app/interface/order';
 import Image from 'next/image';
 
 const OrderTable = ({ orderData }: { orderData: Order[] }) => {
-    console.log(orderData);
 
     return (
         <>

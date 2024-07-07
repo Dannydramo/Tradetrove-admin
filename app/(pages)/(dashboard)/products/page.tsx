@@ -34,7 +34,7 @@ const Products = () => {
         <Layout>
             <section className="lg:col-span-1 px-4 sm:px-6 mt-6">
                 {loading ? (
-                    <p>Loading products...</p>
+                    <p className="text-center">Loading products...</p>
                 ) : products.length === 0 ? (
                     <div className="text-center flex flex-col sm:flex-row sm:justify-between sm:items-center">
                         <p>No products found.</p>
